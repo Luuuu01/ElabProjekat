@@ -1,37 +1,39 @@
 <?php
 
-    require "dbroke.php";
-    require "model/user.php";
+require "dbBroker.php";
+require "model/user.php";
+require "model/prijava.php";
 
-    session_start();
-    if(isset($_POST['username']) && isset($_POST['password']))
-    {
-        $usernameFroma = $_POST['username'];
-        $passwordForma = $_POST['password'];
-        $idForma = 1;
+session_start(); //pokreće novu sesiju ako već nije pokrenuta
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $usernameForma = $_POST['username'];
+    $passwordForma = $_POST['password'];
+    $id = 1;
 
-        $user = new User($idForma,$usernameFroma,$passwordForma);
-
-        $result = User::logInUser($user,$conn);
-
-        echo json_encode($result->num_rows);
-        echo json_encode($_POST['username']);
-        echo json_encode($_POST['password']);
-
-        if($result->num_rows == 1){
-            $_SESSION['user_id'] = $idForma;
-            header('Location: home.php');
-            exit();
-        }
-        else{
-            echo "Neuspesno logovanje";
-        }
+    if (strlen($usernameForma) < 3 && strlen($passwordForma) < 3) {
+        header('Location: index.php');
+        exit();
     }
 
+    $user = new User($id, $usernameForma, $passwordForma);
+    //$result = $user->logIn($user, $conn);
+
+    $result = User::logIn($user, $conn); //pozivanje statičkih funkcija preko klase
+
+    //echo json_encode($result->num_rows);
+    //echo json_encode($_POST['username'] . " " . $_POST['password']);
+
+    if ($result->num_rows == 1) {
+        $_SESSION['user_id'] = $id;
+        header('Location: home.php');
+        exit();
+    }
+    else {
+        echo "Neuspešno logovanje.";
+    }
+}
+
 ?>
-
-
-
 
 
 <!DOCTYPE html>

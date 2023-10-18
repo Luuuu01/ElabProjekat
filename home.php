@@ -1,3 +1,8 @@
+<?php
+    require "dbBroker.php";
+    require "model/prijava.php";
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,23 +52,33 @@
             </thead>
             <tbody>
             <?php
-          //  while ($red = $result->fetch_array()) {
+            //Prijava::deleteById(4);
+            //$prijave = Prijava::getAll();
+            //$prijave = Prijava::getById(10);
+            //$nova = new Prijava(5,"Ekonomija","Ekonomija","C301","2023-3-3");
+            //$lova = new Prijava(5,"Racunovodstv","Finansije","C301","2023-3-3");
+            //Prijava::update($lova);
+            //Prijava::add($nova);
+            $prijave = Prijava::getAll();
+            //var_dump($prijave);
+                //foreach ($prijave as $prijava) :
+            while ($red = $prijave->fetch_array()):
                 ?>
                 <tr>
-                    <td><?php echo $red["predmet"] ?></td>
-                    <td><?php echo $red["katedra"] ?></td>
-                    <td><?php echo $red["sala"] ?></td>
-                    <td><?php echo $red["datum"] ?></td>
+                    <td><?php echo  $red['predmet']  ?></td>
+                    <td><?php echo  $red['katedra'] ?></td>
+                    <td><?php echo  $red['sala'] ?></td>
+                    <td><?php echo  $red['datum'] ?></td>
                     <td>
                         <label class="custom-radio-btn">
-                            <input type="radio" name="checked-donut" value=<?php echo $red["id"] ?>>
+                            <input type="radio" name="checked-donut" value=<?php echo $red['id'] ; ?>>
                             <span class="checkmark"></span>
                         </label>
                     </td>
 
                 </tr>
                 <?php
-          //  }
+                endwhile;
              ?>
             </tbody>
         </table>

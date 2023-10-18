@@ -1,3 +1,39 @@
+<?php
+
+    require "dbroke.php";
+    require "model/user.php";
+
+    session_start();
+    if(isset($_POST['username']) && isset($_POST['password']))
+    {
+        $usernameFroma = $_POST['username'];
+        $passwordForma = $_POST['password'];
+        $idForma = 1;
+
+        $user = new User($idForma,$usernameFroma,$passwordForma);
+
+        $result = User::logInUser($user,$conn);
+
+        echo json_encode($result->num_rows);
+        echo json_encode($_POST['username']);
+        echo json_encode($_POST['password']);
+
+        if($result->num_rows == 1){
+            $_SESSION['user_id'] = $idForma;
+            header('Location: home.php');
+            exit();
+        }
+        else{
+            echo "Neuspesno logovanje";
+        }
+    }
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

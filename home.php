@@ -47,7 +47,7 @@
             </thead>
             <tbody>
             <?php
-            while ($red = $result->fetch_array()) {
+          //  while ($red = $result->fetch_array()) {
                 ?>
                 <tr>
                     <td><?php echo $red["predmet"] ?></td>
@@ -63,7 +63,7 @@
 
                 </tr>
                 <?php
-            }
+          //  }
              ?>
             </tbody>
         </table>
